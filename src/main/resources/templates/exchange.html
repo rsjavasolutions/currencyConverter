@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Your cash</title>
+</head>
+<style>
+body {background-color: lightgray;}
+</style>
+<body>
+<h2>
+    <p>Po wymianie :
+        <a th:text="${showAmount}"/>
+        <a th:text="${showFromCode}"/>
+    </p>
+    <p>Otrzymujesz:
+        <b><a th:text="${showCourse}"/></b>
+        <a th:text="${showToCode}"/>
+    </p>
+</h2>
+<h2><a href="/">Powrót</a></h2>
+</body>
+</html>

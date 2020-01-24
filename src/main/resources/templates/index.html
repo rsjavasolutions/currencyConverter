@@ -1,0 +1,120 @@
+<!DOCTYPE HTML>
+<html lang="pl" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="utf-8" />
+	<title>Kantor wymiany walut</title>
+	<meta name="description" content="Wymieniaj waluty online w internetowym kantorze po atrakcyjnych kursach. Zawieraj transakcje 24/7 bez dodatkowych opłat." />
+	<meta name="keywords" content="kantor, wymiana walut, waluta, pieniądze" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+</head>
+<style>
+	#container
+	{
+		width: 1000px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	#logo
+	{
+		background-color: black;
+		color: white;
+		text-align: center;
+		padding: 15px;
+	}
+	#nav
+	{
+		float: left;
+		background-color: lightgray;
+		width: 200px;
+		min-height: 620px;
+		padding: 10px;
+	}
+	#content
+	{
+		float: left;
+		padding: 20px;
+		width: 560px;
+	}
+	#ad
+	{
+		float: left;
+		width: 160px;
+		min-height: 620px;
+		padding: 10px;
+
+	}
+	#footer
+	{
+		clear: both;
+		background-color: black;
+		color: white;
+		text-align: center;
+		padding: 20px;
+	}
+</style>
+
+<body>
+
+	<div id="container">
+	
+		<div id="logo">
+			<h1>Najlepszy kantor wymiany walut w sieci :)</h1>
+		</div>
+	
+		<div id="nav">
+			<h2>Kursy wszystkich walut</h2>
+			<ul th:each="c : ${allCurrencies}">
+				<li th:text="${c.getName()}"/>
+				<b><a th:text="${c.getCode()}"/></b>&nbsp;&nbsp;&nbsp;
+				<a th:text="${c.getValue()}"/>
+			</ul>
+		</div>
+		
+		<div id="content">
+
+			<form th:action ="@{/add-currency}" th:object="${newExchange}" method="post">
+				<h1>Wymiana walut</h1><br>
+				<h3> Wybierz walutę którą chcesz wymienić:</h3>
+					<select th:field="*{from}">
+						<option th:value="'EUR'" th:text="Euro-EUR"></option>
+						<option th:value="'USD'" th:text="Dolar_amerykański-USD"></option>
+						<option th:value="'HUF'" th:text="Forint-HUF"></option>
+						<option th:value="'CHF'" th:text="Frank_szwajcarski-CHF"></option>
+						<option th:value="'UAH'" th:text="Hrywna-UAH"></option>
+						<option th:value="'RUB'" th:text="Rubel_rosyjski-RUB"></option>
+						<option th:value="'RON'" th:text="Lej_rumuński-RON"></option>
+						<option th:value="'PLN'" th:text="Złotówka-PLN"></option>
+					</select>
+
+				<h3> Wybierz walutę na którą chcesz wymienić:</h3>
+					<select th:field="*{to}">
+						<option th:value="'EUR'" th:text="Euro-EUR"></option>
+						<option th:value="'USD'" th:text="Dolar_amerykański-USD"></option>
+						<option th:value="'HUF'" th:text="Forint-HUF"></option>
+						<option th:value="'CHF'" th:text="Frank_szwajcarski-CHF"></option>
+						<option th:value="'UAH'" th:text="Hrywna-UAH"></option>
+						<option th:value="'RUB'" th:text="Rubel_rosyjski-RUB"></option>
+						<option th:value="'RON'" th:text="Lej_rumuński-RON"></option>
+						<option th:value="'PLN'" th:text="Złotówka-PLN"></option>
+					</select>
+				</p>
+
+				<h3>Ile kasy chcesz wymienić?</h3>
+					<input type="number" autocomplete="off" step = " 0,01 " placeholder="Podaj ilość"  th:field="*{amount}"></h3>
+				<p><input type="submit" value="Wymiana"></p>
+			</form>
+		</div>
+		
+		<div id="ad">
+			<a href="https://studiomarzenfoto.com/"><img src="studioM.jpg" alt="Studio marzeń"></a>
+		</div>
+		
+		<div id="footer">
+			RS Java Solutions
+		</div>
+	
+	</div>
+
+</body>
+</html>

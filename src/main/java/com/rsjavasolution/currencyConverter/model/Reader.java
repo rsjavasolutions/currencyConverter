@@ -1,0 +1,58 @@
+package com.rsjavasolution.currencyConverter.model;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class Reader {
+
+    private String url;
+    private List<Currency> currencyList;
+
+    public List<Currency> getCurrencyList() {
+        return currencyList;
+    }
+
+    public Reader() {
+        url = "http://api.nbp.pl/api/exchangerates/tables/A/?format=json";
+        currencyList = new ArrayList<>();
+
+        try {
+            URL link = new URL(url);
+            HttpURLConnection connection = (HttpURLConnection) link.openConnection();
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+
+            JSONParser parser = new JSONParser();
+            Object currencies = parser.parse(bufferedReader);
+
+            JSONArray array = (JSONArray) currencies;
+            JSONObject jsonObject = (JSONObject) array.get(0);
+            JSONArray currencyArray = (JSONArray) jsonObject.get("rates");
+
+            for (int i = 0; i < currencyArray.size(); i++) {
+                currencyList.add(new Currency
+                                ((String) ((JSONObject) currencyArray.get(i)).get("currency"),
+                                (String) ((JSONObject) currencyArray.get(i)).get("code"),
+                                (Double) ((JSONObject) currencyArray.get(i)).get("mid")));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+
+
