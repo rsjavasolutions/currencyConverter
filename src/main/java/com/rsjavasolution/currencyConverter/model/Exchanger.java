@@ -7,11 +7,11 @@ public class Exchanger {
 
     private String from;
     private String to;
-    private Double value;
+    private Double amount;
 
     public Exchanger(String from, String to, Double amount) {
         this.from = from;
         this.to = to;
-        this.value = amount;
+        this.amount = amount;
     }
 }
