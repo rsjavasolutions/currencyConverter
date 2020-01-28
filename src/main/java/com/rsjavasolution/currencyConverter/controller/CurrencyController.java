@@ -7,14 +7,17 @@ import com.rsjavasolution.currencyConverter.model.Reader;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequestMapping("/api/")
 @RestController
 public class CurrencyController {
 
+    private  Reader reader = new Reader();
+
     @GetMapping("list")
     public List<Currency> getList() {
-        Reader reader = new Reader();
+
         return reader.getCurrencyList();
     }
 
@@ -25,5 +28,13 @@ public class CurrencyController {
         return new Exchanger(from.toUpperCase(),
                 to.toUpperCase(),
                 converter.exchangeMoney());
+    }
+
+    @GetMapping("currency")
+    public List<String> getCurrencyList(){
+        return reader.getCurrencyList()
+                .stream()
+                .map(s -> s.getCode())
+                .collect(Collectors.toList());
     }
 }
