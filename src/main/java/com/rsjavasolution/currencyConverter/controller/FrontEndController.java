@@ -30,6 +30,11 @@ public class FrontEndController {
         return "index";
     }
 
+    @GetMapping("/api")
+    public String getApi(){
+        return "api";
+    }
+
     @GetMapping("exchange")
     String getCalc(ModelMap map){
         map.put("showCourse",converter.exchangeMoney());

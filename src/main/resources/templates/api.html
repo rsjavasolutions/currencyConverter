@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>api</title>
+</head>
+<body>
+<h1>Instrukcja Api</h1>
+<h2>Lista dostępnych walut na których można wykonać przeliczenia</h2>
+<p>https://rsjavasolutions.herokuapp.com/api/currency</p>
+
+<h2>List aktualnych kursów dla listy walut</h2>
+<p>https://rsjavasolutions.herokuapp.com/api/list</p>
+
+<h2>Przeliczenie na podstawie kursu wymiany dla następujących parametrów: kwota, z jakiej waluty, do jakiej waluty</h2>
+
+<p>{currency_from} - z jakiej waluty chcesz wymienić</p>
+<p>{currency_to} - na jaką walutę chcesz wymienić</p>
+<p>{number} - kwota</p>
+<p>https://rsjavasolutions.herokuapp.com/api/exchanger?from={currency_from}&to={currency_to}&amount={number}</p>
+<p>Przykładowe zapytanie</p>
+<P>https://rsjavasolutions.herokuapp.com/api/exchanger?from=EUR&to=PLN&amount=100</P><br>
+<h2><a href="/">Powrót do strony głównej</a> </h2>
+
+</body>
+</html>

@@ -74,6 +74,7 @@
 		<div id="content">
 
 			<form th:action ="@{/add-currency}" th:object="${newExchange}" method="post">
+				<h2 align="center"><a href="api" >Api</a> </h2>
 				<h1>Wymiana walut</h1><br>
 				<h3> Wybierz walutę którą chcesz wymienić:</h3>
 					<select th:field="*{from}">
@@ -104,6 +105,9 @@
 					<input type="number" autocomplete="off" step = " 0,01 " placeholder="Podaj ilość"  th:field="*{amount}"></h3>
 				<p><input type="submit" value="Wymiana"></p>
 			</form>
+
+
+
 		</div>
 		
 		<div id="ad">

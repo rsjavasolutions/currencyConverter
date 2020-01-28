@@ -7,6 +7,7 @@ import com.rsjavasolution.currencyConverter.model.Reader;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RequestMapping("/api/")
@@ -31,10 +32,9 @@ public class CurrencyController {
     }
 
     @GetMapping("currency")
-    public List<String> getCurrencyList(){
+    public Map<String,String> getCurrencyMap(){
         return reader.getCurrencyList()
                 .stream()
-                .map(s -> s.getCode())
-                .collect(Collectors.toList());
+                .collect(Collectors.toMap(x -> x.getCode(), x -> x.getName()));
     }
 }
