@@ -1,7 +1,5 @@
 package com.rsjavasolution.currencyConverter.model;
 
-import com.rsjavasolution.currencyConverter.model.Currency;
-import com.rsjavasolution.currencyConverter.model.Reader;
 import lombok.Data;
 
 @Data
@@ -20,11 +18,11 @@ public class Converter {
     }
 
     public double currencyValue() {
-        Reader reader = new Reader();
+        NbpService nbpService = new NbpService();
         double fromValue = 0;
         double toValue = 0;
 
-        for (Currency c : reader.getCurrencyList()) {
+        for (Currency c : nbpService.getCurrencyList()) {
             if (from.equalsIgnoreCase("PLN")) {
                 fromValue = 1;
             } if (from.equalsIgnoreCase(c.getCode())) {

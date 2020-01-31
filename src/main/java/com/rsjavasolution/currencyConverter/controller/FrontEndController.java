@@ -1,17 +1,12 @@
 package com.rsjavasolution.currencyConverter.controller;
 
 import com.rsjavasolution.currencyConverter.model.Converter;
-import com.rsjavasolution.currencyConverter.model.Currency;
-import com.rsjavasolution.currencyConverter.model.Reader;
+import com.rsjavasolution.currencyConverter.model.NbpService;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 public class FrontEndController {
@@ -24,8 +19,8 @@ public class FrontEndController {
 
     @GetMapping("/")
     public String getCurrency(ModelMap map) {
-        Reader reader = new Reader();
-        map.put("allCurrencies", reader.getCurrencyList());
+        NbpService nbpService = new NbpService();
+        map.put("allCurrencies", nbpService.getCurrencyList());
         map.put("newExchange", new Converter());
         return "index";
     }

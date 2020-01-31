@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Reader {
+public class NbpService {
 
     private String url;
     private List<Currency> currencyList;
@@ -25,7 +25,7 @@ public class Reader {
         return currencyList;
     }
 
-    public Reader() {
+    public NbpService() {
         url = "http://api.nbp.pl/api/exchangerates/tables/A/?format=json";
         currencyList = new ArrayList<>();
 
