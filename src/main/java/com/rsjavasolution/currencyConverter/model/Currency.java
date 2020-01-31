@@ -15,11 +15,10 @@ public class Currency {
         this.value = value;
     }
 
-
     @Override
     public String toString() {
-        return "Kurs waluty: " + name +
-                " Kod walutowy: " + code +
-                " wynosi: " + value +"\n";
+        return "Kurs waluty: " + name
+                + " Kod walutowy: " + code
+                + " wynosi: " + value + "\n";
     }
 }

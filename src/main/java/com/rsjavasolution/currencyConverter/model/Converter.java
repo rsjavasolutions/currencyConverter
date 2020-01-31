@@ -1,5 +1,4 @@
 package com.rsjavasolution.currencyConverter.model;
-
 import lombok.Data;
 
 @Data
