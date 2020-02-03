@@ -7,15 +7,13 @@
 <body>
 <h1>Instrukcja Api</h1>
 
-<h2>Do korzytania z Api wymagany jest klucz dostępu</h2>
-<h3>Żeby dostac bezpłatny klucz proszę wysłać maila na adres stan.robert.1986@gmail.com</h3>
-
+<h2>Do korzytania z Api wymagany jest klucz 
 
 <h2>Lista dostępnych walut na których można wykonać przeliczenia</h2>
-<p>https://rsjavasolutions.herokuapp.com/api/currencies/codes?apiKey={freeApiKey}</p>
+<p>https://rsjavasolutions.herokuapp.com/api/currencies/codes</p>
 
 <h2>List aktualnych kursów dla listy walut</h2>
-<p>https://rsjavasolutions.herokuapp.com/api/currencies?apiKey={freeApiKey}</p>
+<p>https://rsjavasolutions.herokuapp.com/api/currencies</p>
 
 <h2>Przeliczenie na podstawie kursu wymiany dla następujących parametrów: kwota, z jakiej waluty, do jakiej waluty</h2>
 
@@ -24,7 +22,7 @@
 <p>{number} - kwota</p>
 <p>https://rsjavasolutions.herokuapp.com/api/convert?from={currency_from}&to={currency_to}&amount={number}</p>
 <p>Przykładowe zapytanie</p>
-<P>https://rsjavasolutions.herokuapp.com/api/convert?from=EUR&to=PLN&amount=100?apiKey={freeApiKey}</P><br>
+<P>https://rsjavasolutions.herokuapp.com/api/convert?from=EUR&to=PLN&amount=100</P><br>
 <h2><a href="/">Powrót do strony głównej</a> </h2>
 
 </body>
