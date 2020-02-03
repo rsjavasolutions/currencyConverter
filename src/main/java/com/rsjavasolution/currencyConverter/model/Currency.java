@@ -9,11 +9,14 @@ public class Currency {
     private String code;
     private Double value;
 
+
     public Currency(String name, String code, Double value) {
         this.name = name;
         this.code = code;
         this.value = value;
     }
+
+
 
     @Override
     public String toString() {
