@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import javax.tools.JavaCompiler;
 
-public interface ApiRepository extends JpaRepository<Log, Long> {
+public interface LogRepository extends JpaRepository<Log, Long> {
 }

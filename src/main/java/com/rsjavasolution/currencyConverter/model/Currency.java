@@ -16,8 +16,6 @@ public class Currency {
         this.value = value;
     }
 
-
-
     @Override
     public String toString() {
         return "Kurs waluty: " + name
