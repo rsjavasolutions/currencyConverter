@@ -31,10 +31,10 @@ public class CurrencyController {
             log = createLog("api/currencies", "OK", apiKey);
             object = nbpService.getCurrencyList();
         } else if (apiKey.equals("enterKey")) {
-            log = createLog("api/currencies", "NOT_FOUND", "");
+            log = createLog("api/currencies", "UNAUTHORIZED", "");
             object = new Community("API Key is required");
         } else {
-            log = createLog("api/currencies", "NOT_FOUND", apiKey);
+            log = createLog("api/currencies", "UNAUTHORIZED", apiKey);
             // logRepository.save(log);
             object = new Community("Invalid Free API Key");
         }
