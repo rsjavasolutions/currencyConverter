@@ -15,18 +15,18 @@ public class Converter {
         exchange = exchangeMoney();
     }
 
+    public Converter() {
+    }
+
     public double getExchange() {
         return exchange;
     }
 
-    public Converter() {
-    }
-
     public double currencyValue() {
+
         NbpService nbpService = new NbpService();
         double fromValue = 0;
         double toValue = 0;
-
         for (Currency c : nbpService.getCurrencyList()) {
             if (from.equalsIgnoreCase("PLN")) {
                 fromValue = 1;

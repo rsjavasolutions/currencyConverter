@@ -1,10 +1,13 @@
 package com.rsjavasolution.currencyConverter.controller;
 
+import com.rsjavasolution.currencyConverter.dto.mapper.LogMapper;
 import com.rsjavasolution.currencyConverter.model.*;
-import com.rsjavasolution.currencyConverter.repository.ApiRepository;
+import com.rsjavasolution.currencyConverter.repository.LogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -18,66 +21,71 @@ public class CurrencyController {
     private NbpService nbpService = new NbpService();
 
     @Autowired
-    ApiRepository apiController;
+    private LogMapper logMapper;
+
+    @Autowired
+    LogRepository logRepository;
 
     @GetMapping("currencies")
-    public Object getList(@RequestParam(defaultValue = "empty") String apiKey) {
+    public Object getAllCurrencyList(@RequestParam(defaultValue = "enterKey") String apiKey) {
 
-            if (apiKey.equals(key)) {
-                log = createLog("api/currencies", "OK", apiKey);
-                apiController.save(log);
-                return nbpService.getCurrencyList();
-            } else if (apiKey.equals("empty")) {
-                log = createLog("api/currencies","NOT_FOUND","");
-                apiController.save(log);
-                return new Community("API Key is required");
-            } else {
-                log = createLog("api/currencies","NOT_FOUND",apiKey);
-                apiController.save(log);
-                return new Community("Invalid Free API Key");
-            }
+        Object object = null;
+        if (apiKey.equals(key)) {
+            log = createLog("api/currencies", "OK", apiKey);
+            object = nbpService.getCurrencyList();
+        } else if (apiKey.equals("enterKey")) {
+            log = createLog("api/currencies", "UNAUTHORIZED", "");
+            object = new Community("API Key is required");
+        } else {
+            log = createLog("api/currencies", "UNAUTHORIZED", apiKey);
+            // logRepository.save(log);
+            object = new Community("Invalid Free API Key");
         }
+        logMapper.mapToLogtDto(logRepository.save(log));
+        return object;
+    }
 
-    @GetMapping("convert")
+    @GetMapping("currencies/convert")
     public Object exchangeMoney(
-            @RequestParam(defaultValue = "empty") String apiKey,
+            @RequestParam(defaultValue = "enterKey") String apiKey,
             String from, String to, double amount) {
+        Object object = null;
         Converter converter = new Converter(from, to, amount);
 
         if (apiKey.equals(key)) {
-            log = createLog("api/convert", "OK",
+            log = createLog("api/currencies/convert", "OK",
                     apiKey + " , " + from + " , " + to + " , " + amount);
-            apiController.save(log);
-            return new Exchanger(from.toUpperCase(),
+            object = new Exchanger(from.toUpperCase(),
                     to.toUpperCase(),
                     converter.exchangeMoney());
-        } else if (apiKey.equals("empty")) {
-            log = createLog("api/convert", "UNAUTHORIZED",
-                    ""+ " , " + from + " , " + to + " , " + amount);
-            return new Community("API Key is required");
+        } else if (apiKey.equals("enterKey")) {
+            log = createLog("api/currencies/convert", "UNAUTHORIZED",
+                    "" + " , " + from + " , " + to + " , " + amount);
+            object = new Community("API Key is required");
         } else {
-            log = createLog("api/convert", "UNAUTHORIZED",
+            log = createLog("api/currencies/convert", "UNAUTHORIZED",
                     apiKey + " , " + from + " , " + to + " , " + amount);
-            apiController.save(log);
-            return new Community("Invalid Free API Key");
+            object = new Community("Invalid Free API Key");
         }
+        logMapper.mapToLogtDto(logRepository.save(log));
+        return object;
     }
 
     @GetMapping("currencies/codes")
-    public Object getAvailableCurrencyList(@RequestParam(defaultValue = "empty") String apiKey) {
+    public Object getAvailableCurrencyList(@RequestParam(defaultValue = "enterKey") String apiKey) {
+        Object object = null;
         if (apiKey.equals(key)) {
             log = createLog("api/currencies/codes", "OK", apiKey);
-            apiController.save(log);
-            return nbpService.getAvailableCurrencyList();
-        } else if (apiKey.equals("empty")) {
-            log = createLog("api/currencies/codes","UNAUTHORIZED","");
-            apiController.save(log);
-            return new Community("API Key is required");
+            object = nbpService.getAvailableCurrencyList();
+        } else if (apiKey.equals("enterKey")) {
+            log = createLog("api/currencies/codes", "UNAUTHORIZED", "");
+            object = new Community("API Key is required");
         } else {
-            log = createLog("api/currencies/codes","UNAUTHORIZED",apiKey);
-            apiController.save(log);
-            return new Community("Invalid Free API Key");
+            log = createLog("api/currencies/codes", "UNAUTHORIZED", apiKey);
+            object = new Community("Invalid Free API Key");
         }
+        logMapper.mapToLogtDto(logRepository.save(log));
+        return object;
     }
 
     private Log createLog(String url, String status, String param) {
