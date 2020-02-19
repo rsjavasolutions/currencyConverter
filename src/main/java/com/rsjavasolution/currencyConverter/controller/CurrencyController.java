@@ -1,6 +1,7 @@
 package com.rsjavasolution.currencyConverter.controller;
 
 import com.rsjavasolution.currencyConverter.dto.mapper.LogMapper;
+import com.rsjavasolution.currencyConverter.exception.KeyNotFoundException;
 import com.rsjavasolution.currencyConverter.model.*;
 import com.rsjavasolution.currencyConverter.repository.LogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,7 @@ public class CurrencyController {
             object = nbpService.getCurrencyList();
         } else if (apiKey.equals("enterKey")) {
             log = createLog("api/currencies", "UNAUTHORIZED", "");
-            object = new Community("API Key is required");
+            throw new KeyNotFoundException();
         } else {
             log = createLog("api/currencies", "UNAUTHORIZED", apiKey);
             // logRepository.save(log);
