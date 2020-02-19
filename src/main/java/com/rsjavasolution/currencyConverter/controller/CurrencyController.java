@@ -35,15 +35,17 @@ public class CurrencyController {
         List<Currency> currencyList;
         if (apiKey.equals(key)) {
             log = createLog("api/currencies", "OK", apiKey);
+            logMapper.mapToLogtDto(logRepository.save(log));
             currencyList = nbpService.getCurrencyList();
         } else if (apiKey.equals("enterKey")) {
             log = createLog("api/currencies", "UNAUTHORIZED", "");
+            logMapper.mapToLogtDto(logRepository.save(log));
             throw new KeyNotFoundException();
         } else {
             log = createLog("api/currencies", "UNAUTHORIZED", apiKey);
+            logMapper.mapToLogtDto(logRepository.save(log));
             throw new InvalidKeyException(apiKey);
         }
-        logMapper.mapToLogtDto(logRepository.save(log));
         return currencyList;
     }
 
@@ -57,19 +59,21 @@ public class CurrencyController {
         if (apiKey.equals(key)) {
             log = createLog("api/currencies/convert", "OK",
                     apiKey + " , " + from + " , " + to + " , " + amount);
+            logMapper.mapToLogtDto(logRepository.save(log));
             exchanger = new Exchanger(from.toUpperCase(),
                     to.toUpperCase(),
                     converter.exchangeMoney());
         } else if (apiKey.equals("enterKey")) {
             log = createLog("api/currencies/convert", "UNAUTHORIZED",
                     "" + " , " + from + " , " + to + " , " + amount);
+            logMapper.mapToLogtDto(logRepository.save(log));
             throw new KeyNotFoundException();
         } else {
             log = createLog("api/currencies/convert", "UNAUTHORIZED",
                     apiKey + " , " + from + " , " + to + " , " + amount);
+            logMapper.mapToLogtDto(logRepository.save(log));
             throw new InvalidKeyException(apiKey);
         }
-        logMapper.mapToLogtDto(logRepository.save(log));
         return exchanger;
     }
 
@@ -78,15 +82,17 @@ public class CurrencyController {
         List<AvailableCurrency> currencies = null;
         if (apiKey.equals(key)) {
             log = createLog("api/currencies/codes", "OK", apiKey);
+            logMapper.mapToLogtDto(logRepository.save(log));
             currencies = nbpService.getAvailableCurrencyList();
         } else if (apiKey.equals("enterKey")) {
             log = createLog("api/currencies/codes", "UNAUTHORIZED", "");
+            logMapper.mapToLogtDto(logRepository.save(log));
             throw new KeyNotFoundException();
         } else {
             log = createLog("api/currencies/codes", "UNAUTHORIZED", apiKey);
+            logMapper.mapToLogtDto(logRepository.save(log));
             throw new InvalidKeyException(apiKey);
         }
-        logMapper.mapToLogtDto(logRepository.save(log));
         return currencies;
     }
 
