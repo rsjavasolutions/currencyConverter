@@ -25,6 +25,8 @@ public class NbpService {
         return availableCurrencyList;
     }
 
+
+
     public NbpService() {
         url = "http://api.nbp.pl/api/exchangerates/tables/A/?format=json";
         currencyList = new ArrayList<>();
