@@ -74,20 +74,20 @@ public class CurrencyController {
     }
 
     @GetMapping("currencies/codes")
-    public Object getAvailableCurrencyList(@RequestParam(defaultValue = "enterKey") String apiKey) {
-        Object object = null;
+    public List<AvailableCurrency> getAvailableCurrencyList(@RequestParam(defaultValue = "enterKey") String apiKey) {
+        List<AvailableCurrency> currencies = null;
         if (apiKey.equals(key)) {
             log = createLog("api/currencies/codes", "OK", apiKey);
-            object = nbpService.getAvailableCurrencyList();
+            currencies = nbpService.getAvailableCurrencyList();
         } else if (apiKey.equals("enterKey")) {
             log = createLog("api/currencies/codes", "UNAUTHORIZED", "");
-            object = new Community("API Key is required");
+            throw new KeyNotFoundException();
         } else {
             log = createLog("api/currencies/codes", "UNAUTHORIZED", apiKey);
-            object = new Community("Invalid Free API Key");
+            throw new InvalidKeyException(apiKey);
         }
         logMapper.mapToLogtDto(logRepository.save(log));
-        return object;
+        return currencies;
     }
 
     private Log createLog(String url, String status, String param) {
