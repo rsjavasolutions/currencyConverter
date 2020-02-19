@@ -48,29 +48,29 @@ public class CurrencyController {
     }
 
     @GetMapping("currencies/convert")
-    public Object exchangeMoney(
+    public Exchanger exchangeMoney(
             @RequestParam(defaultValue = "enterKey") String apiKey,
             String from, String to, double amount) {
-        Object object = null;
+        Exchanger exchanger = null;
         Converter converter = new Converter(from, to, amount);
 
         if (apiKey.equals(key)) {
             log = createLog("api/currencies/convert", "OK",
                     apiKey + " , " + from + " , " + to + " , " + amount);
-            object = new Exchanger(from.toUpperCase(),
+            exchanger = new Exchanger(from.toUpperCase(),
                     to.toUpperCase(),
                     converter.exchangeMoney());
         } else if (apiKey.equals("enterKey")) {
             log = createLog("api/currencies/convert", "UNAUTHORIZED",
                     "" + " , " + from + " , " + to + " , " + amount);
-            object = new Community("API Key is required");
+            throw new KeyNotFoundException();
         } else {
             log = createLog("api/currencies/convert", "UNAUTHORIZED",
                     apiKey + " , " + from + " , " + to + " , " + amount);
-            object = new Community("Invalid Free API Key");
+            throw new InvalidKeyException(apiKey);
         }
         logMapper.mapToLogtDto(logRepository.save(log));
-        return object;
+        return exchanger;
     }
 
     @GetMapping("currencies/codes")
