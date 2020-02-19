@@ -1,6 +1,7 @@
 package com.rsjavasolution.currencyConverter.controller;
 
 import com.rsjavasolution.currencyConverter.dto.mapper.LogMapper;
+import com.rsjavasolution.currencyConverter.exception.InvalidKeyException;
 import com.rsjavasolution.currencyConverter.exception.KeyNotFoundException;
 import com.rsjavasolution.currencyConverter.model.*;
 import com.rsjavasolution.currencyConverter.repository.LogRepository;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @RequestMapping("/api/")
 @RestController
@@ -28,22 +30,21 @@ public class CurrencyController {
     LogRepository logRepository;
 
     @GetMapping("currencies")
-    public Object getAllCurrencyList(@RequestParam(defaultValue = "enterKey") String apiKey) {
+    public List<Currency> getAllCurrencyList(@RequestParam(defaultValue = "enterKey") String apiKey) {
 
-        Object object = null;
+        List<Currency> currencyList;
         if (apiKey.equals(key)) {
             log = createLog("api/currencies", "OK", apiKey);
-            object = nbpService.getCurrencyList();
+            currencyList = nbpService.getCurrencyList();
         } else if (apiKey.equals("enterKey")) {
             log = createLog("api/currencies", "UNAUTHORIZED", "");
             throw new KeyNotFoundException();
         } else {
             log = createLog("api/currencies", "UNAUTHORIZED", apiKey);
-            // logRepository.save(log);
-            object = new Community("Invalid Free API Key");
+            throw new InvalidKeyException(apiKey);
         }
         logMapper.mapToLogtDto(logRepository.save(log));
-        return object;
+        return currencyList;
     }
 
     @GetMapping("currencies/convert")
