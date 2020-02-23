@@ -12,21 +12,21 @@
 
 <h2>Lista dostępnych walut na których można wykonać przeliczenia</h2>
 <p>{freeApiKey} - darmowy klucz API</p>
-<p>http://localhost:8080/api/currencies/codes?apiKey={freeApiKey}</p>
+<p>http://localhost:8000/api/currencies/codes?apiKey={freeApiKey}</p>
 
 <h2>List aktualnych kursów dla listy walut</h2>
-<p>http://localhost:8080/api/currencies?apiKey={freeApiKey}</p>
+<p>http://localhost:8000/api/currencies?apiKey={freeApiKey}</p>
 
 <h2>Przeliczenie na podstawie kursu wymiany dla następujących parametrów: kwota, z jakiej waluty, do jakiej waluty</h2>
 
 <p>{currency_from} - z jakiej waluty chcesz wymienić</p>
 <p>{currency_to} - na jaką walutę chcesz wymienić</p>
 <p>{number} - kwota</p>
-<p>http://localhost:8080/api/currencies/convert?from={currency_from}&to={currency_to}&amount={number
+<p>http://localhost:8000/api/currencies/convert?from={currency_from}&to={currency_to}&amount={number
     }&apiKey={freeApiKey}</p>
 
 <p>Przykładowe zapytanie</p>
-<P>http://localhost:8080/api/currencies/convert?from=EUR&to=PLN&amount=100&apiKey={freeApiKey}</P><br>
+<P>http://localhost:8000/api/currencies/convert?from=EUR&to=PLN&amount=100&apiKey={freeApiKey}</P><br>
 
 <h2><a href="/">Powrót do strony głównej</a> </h2>
 

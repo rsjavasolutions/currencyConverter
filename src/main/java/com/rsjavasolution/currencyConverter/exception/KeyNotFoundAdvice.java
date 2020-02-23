@@ -15,5 +15,4 @@ public class KeyNotFoundAdvice {
     public String keyNotFoundHandler(KeyNotFoundException ex){
         return ex.getMessage();
     }
-
 }
