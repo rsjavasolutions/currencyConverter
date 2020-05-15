@@ -6,11 +6,17 @@ public class Converter {
     private String from;
     private String to;
     private double amount;
+    private double exchange;
 
     public Converter(String from, String to, double amount) {
         this.amount = amount;
         this.from = from;
         this.to = to;
+        exchange = exchangeMoney();
+    }
+
+    public double getExchange() {
+        return exchange;
     }
 
     public Converter() {
