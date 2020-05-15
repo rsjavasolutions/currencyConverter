@@ -3,6 +3,7 @@ package com.rsjavasolution.currencyConverter.model;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -14,14 +15,20 @@ public class NbpService {
 
     private String url;
     private List<Currency> currencyList;
+    private List<AvailableCurrency> availableCurrencyList;
 
     public List<Currency> getCurrencyList() {
         return currencyList;
     }
 
+    public List<AvailableCurrency> getAvailableCurrencyList() {
+        return availableCurrencyList;
+    }
+
     public NbpService() {
         url = "http://api.nbp.pl/api/exchangerates/tables/A/?format=json";
         currencyList = new ArrayList<>();
+        availableCurrencyList = new ArrayList<>();
 
         try {
             URL link = new URL(url);
@@ -40,6 +47,10 @@ public class NbpService {
                                 ((String) ((JSONObject) currencyArray.get(i)).get("currency"),
                                 (String) ((JSONObject) currencyArray.get(i)).get("code"),
                                 (Double) ((JSONObject) currencyArray.get(i)).get("mid")));
+
+                availableCurrencyList.add(new AvailableCurrency
+                                ((String) ((JSONObject) currencyArray.get(i)).get("code"),
+                                (String) ((JSONObject) currencyArray.get(i)).get("currency")));
             }
         } catch (Exception e) {
             e.printStackTrace();
